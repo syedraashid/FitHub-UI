@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref} from "vue";
+import LoginBG from "../assets/LoginBG.jpg"
 // Background image
-const backgroundImage =
-  "https://public.readdy.ai/ai/img_res/901168aa2f895fc6c3fca2d01f40ea75.jpg";
+const backgroundImage = LoginBG
 // Login state
 const isLoggedIn = ref(false);
 const email = ref("");
