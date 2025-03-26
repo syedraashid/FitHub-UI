@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Quasar } from 'quasar'
 import { createVuetify } from 'vuetify'
-import router from './router'
+import router from './router/router'
 import App from './App.vue'
 
 // Styles

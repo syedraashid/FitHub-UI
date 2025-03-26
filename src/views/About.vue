@@ -1,17 +1,32 @@
 <template>
-  <div class="flex min-h-screen bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-      <v-card>
-        <v-card-title>About Page</v-card-title>
-        <v-card-text>
-          <p class="text-gray-600">This is the about page of our Vue Stack application.</p>
-        </v-card-text>
-        <v-card-actions>
-          <router-link to="/">
-            <v-btn color="primary">Back to Home</v-btn>
-          </router-link>
-        </v-card-actions>
-      </v-card>
-    </div>
-  </div>
+  
 </template>
+
+<script setup>
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import { Loading } from "quasar";
+
+const router = useRouter();
+
+onMounted(async () => {
+  Loading.show();
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
+
+  if (code) {
+    try {
+      const response = await axios.post("http://localhost:8000/user/google-login", { code });
+      localStorage.setItem("accessToken", response.data.token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+      router.push("/Home");
+    } catch (error) {
+      console.error("Google authentication failed", error);
+    }
+    finally{
+      Loading.hide();
+    }
+  }
+});
+</script>
