@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../components/Login.vue'
 import About from '../views/About.vue'
 import Home from '../views/Home.vue'
+import LoginView from '../views/AuthDashBoardView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Login',
-    component: Login
+    component: LoginView
   },
   {
     path: '/auth/callback',
