@@ -1,28 +1,28 @@
 <script  setup>
 import { ref} from "vue";
+import { authStore } from "../stores/authStore";
 
-
-// Login state
-const isLoggedIn = ref(false);
-const email = ref("");
-const password = ref("");
+const auth = authStore();
+const Credential = ref({
+  Email:"",
+  Password:""
+})
 const showPassword = ref(false);
 const IsSigninClicked = ref(false);
-const confirmPassword = ref("");
 
 const handleLogin = () => {
-  if (email.value && password.value) {
-    isLoggedIn.value = true;
+  if (Credential.value.Email && Credential.value.Password) {
+   auth.Login(Credential.value)
   }
 };
 </script>
 
 <template>
-  <form v-if="!IsSigninClicked" @submit.prevent="handleLogin" class="space-y-4">
+  <form @submit.prevent="handleLogin" class="space-y-4">
     <div>
       <input
         type="email"
-        v-model="email"
+        v-model="Credential.Email"
         placeholder="Email address"
         class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
       />
@@ -30,7 +30,7 @@ const handleLogin = () => {
     <div class="relative">
       <input
         :type="showPassword ? 'text' : 'password'"
-        v-model="password"
+        v-model="Credential.Password"
         placeholder="Password"
         class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
       />
@@ -51,6 +51,7 @@ const handleLogin = () => {
       >
     </div>
   <button
+  type="submit"
     class="w-full pt-3 pb-3 cursor-pointer text-white font-semibold flex justify-center items-center  gap-2 items-center bg-black px-4 py-2 rounded-lg border-2 border-purple-500 hover:border-purple-400 transition-all duration-300 hover:shadow-[0_0_20px_10px_rgba(168,85,247,0.6)] active:scale-95 active:shadow-[0_0_10px_5px_rgba(168,85,247,0.4)] group"
   >
     LOG IN

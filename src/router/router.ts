@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import About from '../views/About.vue'
 import Home from '../views/Home.vue'
 import LoginView from '../views/AuthDashBoardView.vue'
+import GoogleCallback from '../components/googleCallback.vue'
 
 const routes = [
   {
@@ -12,10 +13,10 @@ const routes = [
   {
     path: '/auth/callback',
     name: 'About',
-    component: About
+    component: GoogleCallback
   },
   {
-    path: '/Home',
+    path: '/dashboard',
     name: 'Home',
     component: Home
   }

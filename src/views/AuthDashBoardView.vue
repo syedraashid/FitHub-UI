@@ -26,7 +26,7 @@
         <Signin/>
         </div>
          <!-- common button -->
-        <button
+        <button @click="HandleGoogleLogin" 
               class="w-full mt-6  cursor-pointer text-white flex justify-center items-center gap-2 items-center bg-black px-4 py-2 rounded-lg border-2 border-purple-500 hover:border-purple-400 transition-all duration-300 hover:shadow-[0_0_20px_10px_rgba(168,85,247,0.6)] active:scale-95 active:shadow-[0_0_10px_5px_rgba(168,85,247,0.4)] group">
               <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="w-6">
                 <path
@@ -67,13 +67,15 @@ import { ref} from "vue";
 import Login from "../components/Login.vue";
 import Signin from "../components/Signin.vue";
 import LoginBG from "../assets/LoginBG.jpg"
+import authServices from "../Services/authServices";
 
 // Background image
 const backgroundImage = LoginBG
 // Login state
 const IsSigninClicked = ref(false);
 
-const socialLogin = () => {
+const HandleGoogleLogin = () => {
+  authServices.GoogleLogin();
 };
 
 </script>

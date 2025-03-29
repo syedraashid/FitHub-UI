@@ -3,7 +3,7 @@
             <div>
               <input
                 type="email"
-                v-model="email"
+                v-model="Credential.Email"
                 placeholder="Email address"
                 class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
               />
@@ -11,7 +11,7 @@
             <div class="relative">
               <input
                 :type="showPassword ? 'text' : 'password'"
-                v-model="password"
+                v-model="Credential.Password"
                 placeholder="Enter Password"
                 class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
               />
@@ -55,18 +55,20 @@
 
 <script lang="ts" setup>
 import { ref} from "vue";
-
+import { authStore } from "../stores/authStore";
 // Signin state
-const isLoggedIn = ref(false);
-const email = ref("");
-const password = ref("");
+const Credential = ref({
+  Email:"",
+  Password:""
+})
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 const confirmPassword = ref("");
+const auth = authStore();
 
 const handleSignin = () => {
-  if (email.value && password.value) {
-    isLoggedIn.value = true;
+  if (Credential.value.Email && Credential.value.Password) {
+   auth.Register(Credential.value)
   }
 };
 
