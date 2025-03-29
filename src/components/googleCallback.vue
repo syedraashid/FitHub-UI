@@ -16,8 +16,10 @@
         try {
           const response = await Api.post("/User/Google-Login", { code:Code });
   
-          const { jwtToken, user } = response.data;
-          localStorage.setItem("accessToken", jwtToken);
+          const { user , accessToken, refreshToken} = response.data;
+
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("user", JSON.stringify(user));
   
   

@@ -6,7 +6,7 @@ const Api = axios.create({
 })
 
 Api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("accesstoken");
+    const token = localStorage.getItem("accessToken");
     if(token){
         config.headers.Authorization =  `Bearer ${token}`
     }
@@ -23,17 +23,17 @@ Api.interceptors.response.use((response) => response ,
    if(error.response.status === '401' && !originalUrl.retry){
     originalUrl.retry = true;   
     try{
-        const refreshToken = localStorage.getItem('Refreshtoken');
-        const response = await axios.post('/auth/refresh', { refreshToken });
-        localStorage.setItem('accesstoken', response.data.access_token);
-        localStorage.setItem('Refreshtoken', response.data.refresh_token);
+        const refreshToken = localStorage.getItem('refreshToken');
+        const response = await axios.post('/auth/Refresh', refreshToken );
+        localStorage.setItem('accessToken', response.data.access_token);
+        localStorage.setItem('refreshToken', response.data.refresh_token);
         
         originalUrl.headers.Authorization = `Bearer ${response.data.access_token}`;
         return Api(originalUrl);
         }
         catch(refresh_error){
-            localStorage.removeItem('acccesstoken');
-            localStorage.removeItem('Refreshtoken');
+            localStorage.removeItem('acccessToken');
+            localStorage.removeItem('refreshToken');
             router.push("/Login");
             return Promise.reject(refresh_error);
         }

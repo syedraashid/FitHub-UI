@@ -14,8 +14,8 @@ export const authStore = defineStore('auth', {
     actions: {
         async Login(Logincred:LoginCredential) {
             const response = await authServices.LoginEndpoint(Logincred);
-            localStorage.setItem('accesstoken', response.data.access_token);
-            localStorage.setItem('Refreshtoken', response.data.refresh_token);
+            localStorage.setItem('accessToken', response.data.access_token);
+            localStorage.setItem('refreshToken', response.data.refresh_token);
             
             this.user = response.data.user;
             this.isAuthenticated = true;
@@ -24,8 +24,8 @@ export const authStore = defineStore('auth', {
             },
         async Register(Logincred:LoginCredential) {
             const response = await authServices.register(Logincred);
-            localStorage.setItem('accesstoken', response.data.access_token);
-            localStorage.setItem('Refreshtoken', response.data.refresh_token);
+            localStorage.setItem('accessToken', response.data.access_token);
+            localStorage.setItem('refreshToken', response.data.refresh_token);
             
             this.user = response.data.user;
             this.isAuthenticated = true;
@@ -33,15 +33,15 @@ export const authStore = defineStore('auth', {
             return response;
             },
         async Logout() {
-            localStorage.removeItem('accesstoken');
-            localStorage.removeItem('Refreshtoken');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
             this.isAuthenticated = false;
             this.user = null;
         }
     },
-
     getters:{
         currentUser: (state) => state.user,
+        isAuthenticated : (state) => state.isAuthenticated
     }
 
 })
