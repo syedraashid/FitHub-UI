@@ -8,15 +8,15 @@ const scope = "openid email profile";
 export default {
     async LoginEndpoint(credential:any){
         try {
-            const response = await Api.post("/Login", credential);
+            const response = await Api.post("/User/Login", credential);
             return response.data;
           } catch (error) {
-            console.log(error.response?.data?.message || "Registration failed");
+            console.log(error.response?.data?.message || "Login failed");
           }
     },
     async register(User:any){
         try {
-            const response =  await Api.post("SignUp",User);
+            const response =  await Api.post("/User/SignUp",User);
              return response.data;
         } catch (error) {
             console.log(error.response?.data?.message || "Registration failed")

@@ -20,11 +20,17 @@ Api.interceptors.request.use((config) => {
 Api.interceptors.response.use((response) => response ,
      async(error) => {
    const originalUrl = error.config;
-   if(error.response.status === '401' && !originalUrl.retry){
+   console.log(error.response.status,"sts");
+   console.log(error.response.request.status,"sstsre");
+   if(error.response.status == '401' && !originalUrl.retry){
     originalUrl.retry = true;   
     try{
         const refreshToken = localStorage.getItem('refreshToken');
-        const response = await axios.post('/auth/Refresh', refreshToken );
+        const response = await axios.post('http://localhost:8000/User/Refresh', JSON.stringify(refreshToken), {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        });
         localStorage.setItem('accessToken', response.data.access_token);
         localStorage.setItem('refreshToken', response.data.refresh_token);
         
@@ -32,9 +38,9 @@ Api.interceptors.response.use((response) => response ,
         return Api(originalUrl);
         }
         catch(refresh_error){
-            localStorage.removeItem('acccessToken');
+            localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            router.push("/Login");
+            router.push("/");
             return Promise.reject(refresh_error);
         }
     }
