@@ -37,7 +37,7 @@ export const authStore = defineStore('auth', {
             
             this.user = response.user;
             this.isAuthenticated = true;
-            router.push("/dashboard");
+            router.push("/CompleteProfileSetup");
             return response;
             },
         async Logout() {

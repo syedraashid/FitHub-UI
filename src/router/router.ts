@@ -3,6 +3,7 @@ import About from '../views/About.vue'
 import Home from '../views/Home.vue'
 import LoginView from '../views/AuthDashBoardView.vue'
 import GoogleCallback from '../components/googleCallback.vue'
+import ProfileForm from '../components/ProfileForm.vue'
 
 const routes = [
   {
@@ -14,6 +15,12 @@ const routes = [
     path: '/auth/callback',
     name: 'About',
     component: GoogleCallback
+  },
+  {
+    path: '/CompleteProfileSetup',
+    name: 'ProfileForm',
+    component: ProfileForm,
+    meta: {requiresAuth : true}
   },
   {
     path: '/dashboard',
