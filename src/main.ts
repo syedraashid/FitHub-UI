@@ -4,7 +4,7 @@ import { Quasar } from 'quasar'
 import { createVuetify } from 'vuetify'
 import router from './router/router'
 import App from './App.vue'
-
+// import { initializeTracing } from './Tracing'
 //fonts
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -18,7 +18,7 @@ import 'quasar/src/css/index.sass'
 import 'vuetify/styles'
 
 library.add(faEye, faEyeSlash)
-
+// initializeTracing("FitHubUi");
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 const pinia = createPinia()
