@@ -8,7 +8,14 @@ export default defineConfig({
   server: {
     host: 'localhost',  // Ensures the server runs locally
     port: 3000,         // Set Vue frontend port to 3000
-    strictPort: true    // Ensures Vite fails if port 3000 is in use
+    strictPort: true,    // Ensures Vite fails if port 3000 is in use
+    proxy: {
+      '/v1/traces': {
+        target: 'http://localhost:4318',
+        changeOrigin: true,
+        rewrite: (path) => path, // keep /v1/traces as-is
+      }
+    }
   },
   plugins: [
     vue({

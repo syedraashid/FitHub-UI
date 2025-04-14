@@ -23,7 +23,7 @@ export async function initializeTracing(serviceName: string) {
   });
 
   const exporter = new OTLPTraceExporter({
-    url: 'http://localhost:4318/v1/traces', // default for OTLP/HTTP (Jaeger via collector)
+    url: 'http://localhost:3000/v1/traces', // default for OTLP/HTTP (Jaeger via collector)
   });
 
   provider.addSpanProcessor(new BatchSpanProcessor(exporter));
