@@ -1,4 +1,4 @@
-import Api from "./axios";
+import Api from "../axios";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
@@ -25,6 +25,14 @@ export default {
     },
     async GoogleLogin(){
          window.location.href =`https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    },
+    async ProfileSetupComplete(Profile:any){
+        try {
+            const response =  await Api.post("/User/CompleteProfileSetup",Profile);
+             return response.data;
+        } catch (error) {
+            console.log(error.response?.data?.message || "Registration failed")
+        }
     }
 
 }

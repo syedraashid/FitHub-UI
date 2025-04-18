@@ -21,9 +21,13 @@
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("user", JSON.stringify(user));
-  
-  
-          router.push("/dashboard"); // Redirect to dashboard after login
+          console.log(user.isProfileSetupComplete)
+          if(user?.isProfileSetupComplete){
+                router.push("/dashboard");
+                return response;
+            }
+            router.push("/CompleteProfileSetup");
+            return;
         } catch (error) {
           console.error("Google Login Failed", error);
           router.push("/"); // Redirect back if login fails

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import authServices from "../Services/authServices";
+import authServices from "../Services/EndpointServices/authServices";
 import router from "../router/router";
 
 interface LoginCredential{
@@ -10,6 +10,19 @@ interface SignUpCredential{
     Username:string
     Email:string,
     Password:string
+}
+interface ProfileSetup{
+    Email:string,
+    FullName:string
+    Age:number,
+    Weight:number,
+    Height:number,
+    Goal:string,
+    Role:string,
+    Certification:string,
+    Qualifications:string,
+    YearsOfExperience:number,
+    Specialization:string
 }
 
 export const authStore = defineStore('auth', {
@@ -25,9 +38,13 @@ export const authStore = defineStore('auth', {
             localStorage.setItem("user", JSON.stringify(response.user));
             this.user = response.user;
             this.isAuthenticated = true;
-            
-            router.push("/dashboard");
-            return response;
+            console.log(this.user?.isProfileSetupComplete);
+            if(this.user?.isProfileSetupComplete){
+                router.push("/dashboard");
+                return response;
+            }
+               router.push("/CompleteProfileSetup");
+               return;
             },
         async Register(signupcred:SignUpCredential) {
             const response = await authServices.register(signupcred);
@@ -46,10 +63,19 @@ export const authStore = defineStore('auth', {
             localStorage.removeItem("user");
             this.isAuthenticated = false;
             this.user = null;
+        },
+        async ProfileSetup(profile:ProfileSetup) {
+            const response = await authServices.ProfileSetupComplete(profile);
+            if(response.includes("Success")){
+                localStorage.setItem('Role', profile.Role);
+                router.push("/Home");
+                return;
+            }
+            router.push("/");
         }
     },
     getters:{
-        currentUser: (state) => state.user,
+        currentUser: () => localStorage.getItem('user'),
         getAuthStatus : (state) => state.isAuthenticated
     }
 

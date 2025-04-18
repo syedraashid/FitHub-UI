@@ -67,7 +67,7 @@ import { ref} from "vue";
 import Login from "../components/Login.vue";
 import Signin from "../components/Signin.vue";
 import LoginBG from "../assets/LoginBG.jpg"
-import authServices from "../Services/authServices";
+import authServices from "../Services/EndpointServices/authServices";
 
 // Background image
 const backgroundImage = LoginBG
