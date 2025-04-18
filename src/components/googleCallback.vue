@@ -1,11 +1,12 @@
 <template>
-    <div>Logging you in...</div>
-  </template>
+ <HealthSpinner/>
+</template>
   
   <script setup>
   import { useRouter } from "vue-router";
   import Api from "../Services/axios";
  import { onMounted } from "vue";
+ import HealthSpinner from "./HealthSpinner.vue";
   
   onMounted(async () =>{
     const router = useRouter();
@@ -37,4 +38,3 @@
       }
   });
   </script>
-  
