@@ -14,7 +14,7 @@
             v-if="notificationCount > 0"
             class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center border-2 border-gray-800"
           >
-            {{ notificationCount }}
+          {{ notifiStore.Notificationlist.length }}
           </span>
         </button>
       </div>
@@ -108,14 +108,17 @@
 <script setup>
 import { ref, onMounted ,watch} from "vue";
 import * as echarts from 'echarts';
-
+import { NotificationServices } from "../Services/NotificationServices";
+import { notificationStore } from "../stores/NotificationStore";
+const notificationService = new NotificationServices();
+const notifiStore = notificationStore();
 const chartContainer = ref(null);
 let chartInstance = null;
 
 const activeTab = ref('burnt');
 const caloriesBurntData = [500, 600, 750, 800, 650, 700, 720];
 const caloriesIntakeData = [1800, 2000, 1900, 2200, 2100, 2050, 1950];
-const notificationCount = 10;
+let notificationCount = 0;
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const initChart = () => {
@@ -178,6 +181,8 @@ const setTab = (tab) => {
 
 onMounted(() => {
   initChart();
+  notificationService.startConnection();
+  notificationCount = notifiStore.Notificationlist.length
 });
 
 watch(activeTab, () => {
