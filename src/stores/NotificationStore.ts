@@ -4,20 +4,16 @@ interface Notification{
     message:string,
     shortMessage:string,
     datetime: string,
+    isReaded:boolean
 }
 export const notificationStore = defineStore("notificationStore",{
     state: () => ({
-        Noti : [{
-            message:"",
-            shortMessage:"",
-            datetime:"",
-            isReaded:false,
-        }],
+        Noti : [] as Notification[],
     }),
     actions: {
         async AddMessage(Notifi:Notification){
-           const {message , shortMessage, datetime} = Notifi;
-           this.Noti.push({message , shortMessage, datetime, isReaded:false})
+           const {message , shortMessage, datetime, isReaded} = Notifi;
+           this.Noti.push({message , shortMessage, datetime, isReaded})
         },
         async MarkAsRead(index:number){
            if(this.Noti[index]){

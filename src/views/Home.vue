@@ -5,13 +5,13 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
           <div>
-            <h1 class="text-xl font-semibold">Hi, {{ userName }}</h1>
+            <h1 class="text-xl font-semibold">Hi, {{ userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase() }}</h1>
           </div>
         </div>
         <button class="relative p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white">
           <font-awesome-icon icon="bell" class="text-xl" />
           <span
-            v-if="notificationCount > 0"
+            v-if="notifiStore.Notificationlist.length > 0"
             class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center border-2 border-gray-800"
           >
           {{ notifiStore.Notificationlist.length }}
@@ -110,10 +110,12 @@ import { ref, onMounted ,watch} from "vue";
 import * as echarts from 'echarts';
 import { NotificationServices } from "../Services/NotificationServices";
 import { notificationStore } from "../stores/NotificationStore";
+import { authStore } from "../stores/authStore";
 const notificationService = new NotificationServices();
 const notifiStore = notificationStore();
 const chartContainer = ref(null);
 let chartInstance = null;
+const AuthStore = authStore();
 
 const activeTab = ref('burnt');
 const caloriesBurntData = [500, 600, 750, 800, 650, 700, 720];
@@ -189,7 +191,8 @@ watch(activeTab, () => {
   initChart();
 });
 
-const userName = ref("Alexander");
+const userName = ref("");
+userName.value = AuthStore.currentUser.name.split(" ")[0];
 
 const navItems = ref([
   { label: "Home", icon: "fa-solid fa-house", isActive: true },

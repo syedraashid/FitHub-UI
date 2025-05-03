@@ -68,14 +68,17 @@ export const authStore = defineStore('auth', {
             const response = await authServices.ProfileSetupComplete(profile);
             if(response.includes("Success")){
                 localStorage.setItem('Role', profile.Role);
-                router.push("/Home");
+                router.push("/dashboard");
                 return;
             }
             router.push("/");
         }
     },
     getters:{
-        currentUser: () => localStorage.getItem('user'),
+        currentUser: () => {
+            const user = localStorage.getItem('user');
+            return user ? JSON.parse(user) : null;
+        },
         getAuthStatus : (state) => state.isAuthenticated
     }
 
